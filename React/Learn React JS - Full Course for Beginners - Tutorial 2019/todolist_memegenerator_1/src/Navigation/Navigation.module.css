@@ -1,0 +1,33 @@
+.Navigation {
+  overflow: hidden;
+  background-color: #61dafb;
+}
+.Navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.Navigation ul li a {
+  float: left;
+  padding: 1vw;
+  text-decoration: none;
+  color: #fff;
+}
+.Navigation ul li a:hover {
+  color: #cff;
+}
+
+.Navigation > div {
+  padding: 0.6vw 2vw;
+}
+
+.fleft {
+  float: left;
+}
+.fright {
+  float: right;
+}
+button {
+  margin: 0 0.2vw;
+}

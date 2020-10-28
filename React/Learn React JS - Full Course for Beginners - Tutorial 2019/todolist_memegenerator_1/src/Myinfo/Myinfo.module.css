@@ -1,0 +1,15 @@
+.Myinfo {
+  text-align: center;
+  color: #61dafb;
+  padding: 2vw 0;
+}
+.Myinfo p {
+  color: #000;
+}
+.Myinfo ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  color: #ccc;
+}

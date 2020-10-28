@@ -1,0 +1,11 @@
+.Jokes {
+  text-align: center;
+  color: #61dafb;
+  padding: 2vw 0;
+}
+.even {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.odd {
+  background-color: transparent;
+}
