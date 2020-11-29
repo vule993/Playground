@@ -10,8 +10,6 @@ import Todolist from "./Todolist/Todolist";
 import Jokes from "./Jokes/Jokes"
 import Footer from "./Footer/Footer";
 import School from "./School/School";
-import EventHandling from "./EventHandling/EventHandling";
-import States from "./States/States";
 
 function App() {
   return (
@@ -25,8 +23,6 @@ function App() {
           <Route path="/myinfo" component={Myinfo} />
           <Route path="/jokes" component={Jokes} />
           <Route path="/school" component={School} />
-          <Route path="/events" component={EventHandling} />
-          <Route path="/states" component={States} />
           <Route path="/contact" render={() => <h1>Contact Us</h1>} />
           <Route
             path="/blog"

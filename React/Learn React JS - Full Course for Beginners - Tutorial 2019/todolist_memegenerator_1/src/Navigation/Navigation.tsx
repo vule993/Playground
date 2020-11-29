@@ -16,15 +16,13 @@ const Navigation: React.FC = () => {
           <Link to="/myinfo">My info</Link>{""}
           <Link to="/jokes">Jokes</Link>{""}
           <Link to="/school">School</Link>{""}
-          <Link to="/events">Event handling</Link>{""}
-          <Link to="/states">States</Link>{""}
         </li>
       </ul>
 
       <div className={styles.fright}>
         Cao, ti si {logged? "ulogovan":"izlogovan"}
-        {!logged&&<button className="btn btn-success" onClick={log}>Log In</button>}
-        {logged&&<button className="btn btn-danger" onClick={log}>Log Out</button>}
+        {!logged&&<button onClick={log}>Log In</button>}
+        {logged&&<button onClick={log}>Log Out</button>}
       </div>
     </div>
   )

@@ -1,13 +1,1 @@
-.Todoitem {
-  width: 20%;
-  margin: 5px auto;
-  padding: 5px;
-  text-align: left;
-  overflow: hidden;
-}
-.Todoitem:nth-child(even) {
-  background-color: rgb(152, 140, 221);
-}
-.fright {
-  float: right;
-}
+.Todoitem {}
