@@ -1,3 +1,3 @@
 # Playground
 
-Practicing and learning
+Practicing, learning and trying new stuff
