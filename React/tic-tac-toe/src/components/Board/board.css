@@ -1,0 +1,12 @@
+.status {
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0.1vw 0.2vh rgba(192, 144, 75, 0.5);
+}
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}

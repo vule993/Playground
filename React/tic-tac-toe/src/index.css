@@ -8,106 +8,10 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-.status {
-  margin-bottom: 10px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  text-shadow: 0.1vw 0.2vh rgba(192, 144, 75, 0.5);
-}
-
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  border-radius: 10px;
-  float: left;
-  font-size: 44px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 100px;
-  padding: 0;
-  text-align: center;
-  width: 100px;
-  color: #c0904b;
-  background-color: #2f3f4c;
-  margin: 5px;
-  box-shadow: 0.2vw 0.4vh rgba(47, 63, 76, 0.5);
-}
-
-.square:focus {
-  outline: none;
-}
-
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
-.game {
-  width: 63vw;
-  height: 98vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.game-board {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.game-info {
-  margin-left: 20px;
-}
 #wrapper {
   display: flex;
   justify-content: center;
   align-content: center;
-}
-#rank {
-  width: 35vw;
-  height: 98vh;
-  padding: 1vh 1vw;
-  background-color: #2f3f4c;
-  color: #c0904b;
-}
-button {
-  border: 1px solid #2f3f4c;
-  border-radius: 5px;
-  margin-top: 15px;
-  padding: 10px 32px 10px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  background-color: #c0904b;
-  color: #2f3f4c;
-  box-shadow: 0.2vw 0.4vh rgba(47, 63, 76, 0.5);
-}
-button > img {
-  height: 12px;
-  margin-right: 5px;
-}
-.playerPrompt {
-  background-color: #2f3f4c;
-  height: 30vh;
-  width: 20vw;
-  padding: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.playerPrompt input {
-  border: 0;
-  border-radius: 5px;
-  height: 5vh;
-  padding: 0 1vw;
 }
 #notification {
   position: absolute;
@@ -146,4 +50,55 @@ button > img {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.game {
+  width: 63vw;
+  height: 98vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.game-info {
+  margin-left: 20px;
+}
+
+button {
+  border: 1px solid #2f3f4c;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 10px 32px 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  background-color: #c0904b;
+  color: #2f3f4c;
+  box-shadow: 0.2vw 0.4vh rgba(47, 63, 76, 0.5);
+}
+button > img {
+  height: 12px;
+  margin-right: 5px;
+}
+.playerPrompt {
+  background-color: #2f3f4c;
+  height: 30vh;
+  width: 20vw;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.playerPrompt input {
+  border: 0;
+  border-radius: 5px;
+  height: 5vh;
+  padding: 0 1vw;
 }

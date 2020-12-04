@@ -1,67 +1,16 @@
+//def
 import React from 'react'
 import ReactDOM from 'react-dom'
+//css
 import './index.css'
+//img
 import restart from './img/restart.png'
 import close from './img/close.png'
-
-function Square(props) {
-    console.log('square is rendered')
-    return (
-        <button
-            className="square"
-            onClick={props.naKlik}  //kada se dogodi klik na dugme poziva se roditeljska metoda prosledjena u 
-                                    //renderSquare(i) sa parametrom i koji predstavlja index u matrici
-                                    //na osnovu cega dolazi do setovanja nove vrednosti x ili o na kliknuto polje
-        >
-            {props.value}
-        </button>
-    )
-}
-
-function Board(props) {
-    
-    console.log('board is rendered')
-
-    let winner = calculateWinner(
-        props.boardState.squares,
-        props.boardState.nameX,
-        props.boardState.nameY,
-        props.boardState.winner, 
-        props.boardState.moves
-    )
-
-    let status
-
-    if (checkEndGame(props.boardState.squares)) {
-        status = "Nobody wins...:("
-    }else if (winner) {
-        status = "Winner is: " + winner
-    } else {
-        status = "Next player: " + ((props.boardState.xIsNext)?'X':'O')
-    }
-
-    return (
-        <div>
-            <div className="status">{status}</div>
-            <div className="board-row">
-                {props.renderSquare(0)}
-                {props.renderSquare(1)}
-                {props.renderSquare(2)}
-            </div>
-            <div className="board-row">
-                {props.renderSquare(3)}
-                {props.renderSquare(4)}
-                {props.renderSquare(5)}
-            </div>
-            <div className="board-row">
-                {props.renderSquare(6)}
-                {props.renderSquare(7)}
-                {props.renderSquare(8)}
-            </div>
-        </div>
-    )
-        
-}
+//mod
+import Board from './components/Board/board'
+import Square from './components/Square/square'
+import ScoreBoard from './components/ScoreBoard/scoreBoard'
+import { checkNames, unNotify } from './core'
 
 class Game extends React.Component{
     constructor(props) {
@@ -71,23 +20,25 @@ class Game extends React.Component{
             xIsNext: true,
             winner: null,
             gameStarted: false,
-            nameX: "",
-            nameY: "",
+            player1: "",
+            player2: "",
             moves: 0
         }
-        
-        // localStorage.clear()
-        
         this.handleClick = this.handleClick.bind(this)
         this.renderSquare = this.renderSquare.bind(this)
+
+        this.player1Input = React.createRef()
+        this.player2Input = React.createRef()
     }
+
     componentDidMount() {
         if (!localStorage.getItem('winners')){
             localStorage.setItem('winners', '')
         }
     }
+
     handleClick(i) {
-        let squares = [...this.state.squares]   //ili .slice() prazni parametri znaci vraca isti niz
+        let squares = [...this.state.squares]   //ili .slice() prazni parametri znaci vraca kopiju celog niza
         if (this.state.winner) {
             return
         }
@@ -103,14 +54,13 @@ class Game extends React.Component{
                 moves: this.state.moves + 1
             }
         )
-        
     }
     
     renderSquare(i) {
         return (
             <Square
                 value={this.state.squares[i]} 
-                naKlik={() => this.handleClick(i)}
+                onClick={() => this.handleClick(i)}
             />
         )
     }
@@ -122,8 +72,8 @@ class Game extends React.Component{
                 xIsNext: true,
                 winner: null,
                 gameStarted: false,
-                nameX: "",
-                nameY: "",
+                player1: "",
+                player2: "",
                 moves: 0
             }
         )
@@ -131,13 +81,13 @@ class Game extends React.Component{
 
     startGame() {
         if (checkNames()) {
-            let player1 = document.getElementById('x').value
-            let player2 = document.getElementById('y').value
+            let player1 = this.player1Input.current
+            let player2 = this.player2Input.current
             
             this.setState(
                 {
-                    nameX: player1,
-                    nameY: player2,
+                    player1: player1,
+                    player2: player2,
                     gameStarted: true
                 }
             )
@@ -148,7 +98,6 @@ class Game extends React.Component{
     render() {
         let winners = localStorage.getItem('winners')
         winners = (winners && winners !== '')?JSON.parse(winners):[]
-        // debugger
         return (
             <div id="wrapper">
                 <div id='notification'>
@@ -170,9 +119,9 @@ class Game extends React.Component{
                         !this.state.gameStarted &&
                         <div className="playerPrompt">
                             <label>Player X</label>
-                            <input id="x" placeholder="Enter player X name..."/>
+                            <input id="x" ref={this.player1Input} placeholder="Enter player X name..."/>
                             <label>Player Y</label>
-                            <input id="y" placeholder="Enter player Y name..."/>
+                            <input id="y" ref={this.player2Input} placeholder="Enter player Y name..."/>
                             <button onClick={() => this.startGame()}>Start game</button>
                         </div>
                     }
@@ -186,11 +135,6 @@ class Game extends React.Component{
                         </button>
                     </div>
                     }
-
-                    <div className="game-info">
-                        <div>{ /* status */ }</div>
-                        <ol>{ /*TODO*/} </ol>
-                    </div>
                 </div>
                 <ScoreBoard list={ winners }/>
                 
@@ -200,101 +144,10 @@ class Game extends React.Component{
     }
 }
 
-function ScoreBoard(props){
 
-    const Winners = () => (
-        <>
-            {
-                props.list.map((score, index) => {
-                    return (
-                        <div key={index}>{ score }</div>
-                    )
-                })
-            }
-        </>
-    )
-
-        
-    return (
-        <div id="rank">
-            <h2>Winners</h2>
-            <div id="winner-list">
-                <Winners />
-            </div>
-        </div>
-    )
-    
-    
-}
 
 ReactDOM.render(
     <Game />,
     document.getElementById('root')
 )
 
-
-
-function notify(text) {
-    
-    document.getElementById('notification').style.visibility = "visible"
-    document.getElementById('notification').style.opacity = 1
-    document.getElementById('text').innerHTML = text 
-}
-
-function unNotify() {
-    document.getElementById('text').innerHTML = "" 
-    document.getElementById('notification').style.visibility = "hidden"
-    document.getElementById('notification').style.opacity = 0
-}
-
-function checkNames() {
-    let x = document.getElementById('x').value
-    let y = document.getElementById('y').value
-    if (x && y) {
-        return true
-    }
-    notify("You must type names for both players...")
-    return false
-}
-
-function checkEndGame(squares) {
-    
-    for (let s of squares) {
-        if (s === null) {
-            return false
-        }
-    }
-    return true
-}
-
-function calculateWinner(squares,player1, player2,winner, moves) {
-    
-    const lines = [
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6],
-    ]
-    
-    for (let i = 0; i < lines.length; i++){
-        let [a, b, c] = lines[i]
-        
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-
-            let winners = localStorage.getItem('winners')
-            winners = (winners !== '') ? JSON.parse(winners) : []
-            debugger
-            winner = (squares[a] === 'X') ? player1 : player2
-            winners.push(player1 + " vs " + player2 + " victory for " + winner + " in " + moves + " moves")
-            localStorage.setItem('winners', JSON.stringify(winners))
-            return squares[a]
-            //save call
-        }
-    }
-
-    return null
-}
