@@ -10,7 +10,7 @@ import close from './img/close.png'
 import Board from './components/Board/board'
 import Square from './components/Square/square'
 import ScoreBoard from './components/ScoreBoard/scoreBoard'
-import { checkNames, unNotify } from './core'
+import { checkNames, unNotify, notify } from './core'
 
 class Game extends React.Component{
     constructor(props) {
@@ -29,6 +29,8 @@ class Game extends React.Component{
 
         this.player1Input = React.createRef()
         this.player2Input = React.createRef()
+        this.dialog = React.createRef()
+        this.textContainer = React.createRef()
     }
 
     componentDidMount() {
@@ -80,19 +82,22 @@ class Game extends React.Component{
     }
 
     startGame() {
-        if (checkNames()) {
-            let player1 = this.player1Input.current
-            let player2 = this.player2Input.current
+        let player1 = this.player1Input.current.value
+        let player2 = this.player2Input.current.value
+        
+        if (!checkNames(player1,player2)) {
+            notify(this.dialog, this.textContainer, "You must type names for both players...")
+            return
             
-            this.setState(
-                {
-                    player1: player1,
-                    player2: player2,
-                    gameStarted: true
-                }
-            )
-            
-        }
+        } 
+
+        this.setState(
+            {
+                player1: player1,
+                player2: player2,
+                gameStarted: true
+            }
+        )
     }
 
     render() {
@@ -100,17 +105,17 @@ class Game extends React.Component{
         winners = (winners && winners !== '')?JSON.parse(winners):[]
         return (
             <div id="wrapper">
-                <div id='notification'>
+                <div id='notification' ref={this.dialog}>
                     <div className='message'>
                         <div className="header">
                             <img
                                 src={close}
-                                onClick={() => unNotify()}
+                                onClick={() => unNotify(this.dialog, this.textContainer)}
                                 alt="close icon"
                             />
                         </div>
                         <div id="content">
-                            <div id="text"></div>
+                            <div id="text" ref={this.textContainer}></div>
                         </div>
                     </div>
                 </div>
@@ -119,9 +124,9 @@ class Game extends React.Component{
                         !this.state.gameStarted &&
                         <div className="playerPrompt">
                             <label>Player X</label>
-                            <input id="x" ref={this.player1Input} placeholder="Enter player X name..."/>
+                            <input ref={this.player1Input} placeholder="Enter player X name..."/>
                             <label>Player Y</label>
-                            <input id="y" ref={this.player2Input} placeholder="Enter player Y name..."/>
+                            <input ref={this.player2Input} placeholder="Enter player Y name..."/>
                             <button onClick={() => this.startGame()}>Start game</button>
                         </div>
                     }

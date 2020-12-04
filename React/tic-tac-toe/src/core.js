@@ -1,28 +1,23 @@
-export function notify(text) {
-    
-    document.getElementById('notification').style.visibility = "visible"
-    document.getElementById('notification').style.opacity = 1
-    document.getElementById('text').innerHTML = text 
+export function notify(dialog,textContainer,text) {
+    dialog.current.style.visibility = "visible"
+    dialog.current.style.opacity = 1
+    textContainer.current.innerHTML = text 
 }
 
-export function unNotify() {
-    document.getElementById('text').innerHTML = "" 
-    document.getElementById('notification').style.visibility = "hidden"
-    document.getElementById('notification').style.opacity = 0
+export function unNotify(dialog, textContainer) {
+    textContainer.current.innerHTML = "" 
+    dialog.current.style.visibility = "hidden"
+    dialog.current.style.opacity = 0
 }
 
-export function checkNames() {
-    let x = document.getElementById('x').value
-    let y = document.getElementById('y').value
+export function checkNames(x,y) {
     if (x && y) {
         return true
     }
-    notify("You must type names for both players...")
     return false
 }
 
 export function checkEndGame(squares) {
-    
     for (let s of squares) {
         if (s === null) {
             return false
@@ -32,7 +27,6 @@ export function checkEndGame(squares) {
 }
 
 export function calculateWinner(squares,player1, player2,winner, moves) {
-    
     const lines = [
         [0,1,2],
         [3,4,5],
@@ -51,6 +45,7 @@ export function calculateWinner(squares,player1, player2,winner, moves) {
 
             let winners = localStorage.getItem('winners')
             winners = (winners !== '') ? JSON.parse(winners) : []
+
             winner = (squares[a] === 'X') ? player1 : player2
             winners.push(player1 + " vs " + player2 + " victory for " + winner + " in " + moves + " moves")
             localStorage.setItem('winners', JSON.stringify(winners))
