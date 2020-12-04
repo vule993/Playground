@@ -12,7 +12,7 @@ export default function Board(props) {
         props.boardState.moves
     )
 
-    if (checkEndGame(props.boardState.squares)) {
+    if (checkEndGame(props.boardState.squares) && !winner) {
         status = "Nobody wins...:("
     }else if (winner) {
         status = "Winner is: " + winner
