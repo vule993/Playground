@@ -26,7 +26,7 @@ export function checkEndGame(squares) {
     return true
 }
 
-export function calculateWinner(squares,player1, player2,winner, moves) {
+export function calculateWinner(squares,player1, player2,winner, moves, winnerList) {
     const lines = [
         [0,1,2],
         [3,4,5],
@@ -48,6 +48,7 @@ export function calculateWinner(squares,player1, player2,winner, moves) {
 
             winner = (squares[a] === 'X') ? player1 : player2
             winners.push(player1 + " vs " + player2 + " victory for " + winner + " in " + moves + " moves")
+            winnerList.push(winners[winners.length - 1])
             localStorage.setItem('winners', JSON.stringify(winners))
             return squares[a]
         }

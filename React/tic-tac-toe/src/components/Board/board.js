@@ -9,7 +9,8 @@ export default function Board(props) {
         props.boardState.player1,
         props.boardState.player2,
         props.boardState.winner, 
-        props.boardState.moves
+        props.boardState.moves,
+        props.boardState.winnerList
     )
 
     if (checkEndGame(props.boardState.squares) && !winner) {

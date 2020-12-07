@@ -83,6 +83,9 @@ button {
   color: #2f3f4c;
   box-shadow: 0.2vw 0.4vh rgba(47, 63, 76, 0.5);
 }
+.game-board > button {
+  width: 12vw;
+}
 button > img {
   height: 12px;
   margin-right: 5px;

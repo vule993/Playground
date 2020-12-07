@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 //img
 import restart from './img/restart.png'
+import newGame from './img/add.png'
 import close from './img/close.png'
 //mod
 import Board from './components/Board/board'
@@ -22,7 +23,8 @@ class Game extends React.Component{
             gameStarted: false,
             player1: "",
             player2: "",
-            moves: 0
+            moves: 0, 
+            winnerList: []
         }
         this.handleClick = this.handleClick.bind(this)
         this.renderSquare = this.renderSquare.bind(this)
@@ -36,6 +38,11 @@ class Game extends React.Component{
     componentDidMount() {
         if (!localStorage.getItem('winners')){
             localStorage.setItem('winners', '')
+        } else {
+            let winners = localStorage.getItem('winners')
+            this.setState({
+                winnerList:(winners && winners !== '') ? JSON.parse(winners) : []
+            })
         }
     }
 
@@ -73,6 +80,17 @@ class Game extends React.Component{
                 squares: Array(9).fill(null),
                 xIsNext: true,
                 winner: null,
+                moves: 0
+            }
+        )
+    }
+
+    newGame() {
+        this.setState(
+            {
+                squares: Array(9).fill(null),
+                xIsNext: true,
+                winner: null,
                 gameStarted: false,
                 player1: "",
                 player2: "",
@@ -101,8 +119,7 @@ class Game extends React.Component{
     }
 
     render() {
-        let winners = localStorage.getItem('winners')
-        winners = (winners && winners !== '')?JSON.parse(winners):[]
+        
         return (
             <div id="wrapper">
                 <div id='notification' ref={this.dialog}>
@@ -133,15 +150,19 @@ class Game extends React.Component{
                     {
                         this.state.gameStarted  &&
                         <div className="game-board">
-                        <Board boardState={this.state} onClick={this.handleClick} renderSquare={this.renderSquare} />
-                        <button onClick={() => this.restart()}>
-                            <img src={restart} alt="" />
-                            Restart
-                        </button>
-                    </div>
+                            <Board boardState={this.state} onClick={this.handleClick} renderSquare={this.renderSquare} />
+                            <button onClick={() => this.restart()}>
+                                <img src={restart} alt="" />
+                                Restart
+                            </button>
+                                <button onClick={() => this.newGame()}>
+                                <img src={newGame} alt="" />
+                                New Game
+                            </button>
+                        </div>
                     }
                 </div>
-                <ScoreBoard list={ winners }/>
+                <ScoreBoard list={ this.state.winnerList }/>
                 
             </div>
             
