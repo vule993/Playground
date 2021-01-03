@@ -26,7 +26,10 @@ export function checkEndGame(squares) {
     return true
 }
 
-export function calculateWinner(squares,player1, player2,winner, moves, winnerList) {
+export function calculateWinner(boardState) {
+    //destructuring
+    let {squares, player1, player2, winner, moves, winnerList} = boardState
+
     const lines = [
         [0,1,2],
         [3,4,5],
@@ -42,7 +45,7 @@ export function calculateWinner(squares,player1, player2,winner, moves, winnerLi
         let [a, b, c] = lines[i]
         
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-
+            debugger;
             let winners = localStorage.getItem('winners')
             winners = (winners !== '') ? JSON.parse(winners) : []
 

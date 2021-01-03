@@ -4,21 +4,17 @@ import {calculateWinner, checkEndGame} from '../../core'
 
 export default function Board(props) {
     let status
-    let winner = calculateWinner(
-        props.boardState.squares,
-        props.boardState.player1,
-        props.boardState.player2,
-        props.boardState.winner, 
-        props.boardState.moves,
-        props.boardState.winnerList
+    props.boardState.winner = calculateWinner(
+        props.boardState
     )
-
+    const { winner, xIsNext } = props.boardState
+    
     if (checkEndGame(props.boardState.squares) && !winner) {
         status = "Nobody wins...:("
     }else if (winner) {
         status = "Winner is: " + winner
     } else {
-        status = "Next player: " + ((props.boardState.xIsNext)?'X':'O')
+        status = "Next player: " + ((xIsNext)?'X':'O')
     }
 
     return (
